@@ -1,0 +1,41 @@
+classDiagram
+    class Point {
+        +float time
+        +float lat
+        +float lon
+        +float alt
+        +float speed_mps
+        +bool is_anomaly
+    }
+
+    class Loader {
+        +load(path) list[Point]
+        -_parse_row(row, line_num) Point|None
+        -_validate_bounds(record) bool
+    }
+
+    class Processor {
+        +process(records) list[Point]
+        -_compute_speed(a, b, dt) float
+        -_haversine_m(lat1, lon1, lat2, lon2) float
+        -_flag_anomalies(records) None
+    }
+
+    class Visualizer {
+        -list[Point] records
+        -dash.Dash app
+        +run(debug, port) None
+        -_build_layout() Div
+        -_register_callbacks() None
+    }
+
+    class main {
+        +main() None
+    }
+
+    Loader ..> Point : creates
+    Processor ..> Point : enriches
+    Visualizer ..> Point : displays
+    main --> Loader : uses
+    main --> Processor : uses
+    main --> Visualizer : uses
