@@ -138,10 +138,10 @@ classDiagram
 
     Loader ..> Point : creates
     Processor ..> Point : enriches
-    Visualizer ..> Point : reads
-    main --> Loader
-    main --> Processor
-    main --> Visualizer
+    Visualizer ..> Point : displays
+    main --> Loader : uses
+    main --> Processor : uses
+    main --> Visualizer : uses
 ```
 
 ---
